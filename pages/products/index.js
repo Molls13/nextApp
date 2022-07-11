@@ -1,19 +1,24 @@
 import { fetchEntries } from "../../contentful"
+import Link from "next/link";
 
-function Products({ products }) {
+const Products = ({ products }) => {
   return (
-    <>
-      {products.map(product => <p key={product.id}>{product.name}</p>)}
-    </>
+    <ul>
+      {products.map(product => (
+      <li key={product.id} >
+        <Link href={`/products/${encodeURIComponent(product.name)}`}>{product.name}</Link>
+      </li>
+      ))}
+    </ul>
   )
 }
 
-export async function getStaticProps() {
-  const products = await fetchEntries()
+export const getStaticProps = async () => {
+    const products = await fetchEntries()
   return {
     props: {
-      products,
-    },
+        products
+    }
   }
 }
 

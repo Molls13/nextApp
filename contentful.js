@@ -3,7 +3,7 @@ const client = require('contentful').createClient({
   accessToken: process.env.CONTENTFUL_ACCESS_TOKEN,
 })
 
-export async function fetchEntries() {
+export const fetchEntries = async () => {
   const entries = await client.getEntries()
   return entries.items.map(entry => ({
     name: entry.fields.name,
