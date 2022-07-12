@@ -15,10 +15,8 @@ export const getStaticProps = async (context) => {
   const products = await fetchEntries()
   const product = products.find(product => product.name === decodeURIComponent(context.params.name))
   const response = await fetch(`https://promise-all-266538.netlify.app/.netlify/functions/getQuantity?id=${product.id}`)
-  console.log('****',response)
   const data = await response.json()
-  console.log('data', data)
-  const { quantity } = JSON.parse(response)
+  const { quantity} = data
   return {
     props: {
       product: {
