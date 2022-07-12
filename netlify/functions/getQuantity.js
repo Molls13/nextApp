@@ -10,17 +10,20 @@ const getQuantity = async id => {
   await client.connect();
   const db = client.db('Products');
   const collection = db.collection('Product-quantity');
-  const result = await collection.findOne({ProductId : id})
+  const result = await collection.findOne({ ProductId: id })
   client.close();
   return result.Quantity;
 }
 
-export default async function handler(req, res) {
-  const { id } = req.query
+export async function handler(event, context) {
+  const { id } = event.queryStringParameters
   const quantity = await getQuantity(id)
 
-  res.status(200).json({
-    id,
-    quantity
+  return ({
+    statusCode: 200,
+    body: JSON.stringify({
+      id,
+      quantity
+    })
   })
 }
