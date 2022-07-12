@@ -9,7 +9,6 @@ export const fetchEntries = async () => {
     name: entry.fields.name,
     description: entry.fields.description,
     price: entry.fields.price,
-    quantity: entry.fields.quantity,
     id: entry.sys.id
   }))
 }
