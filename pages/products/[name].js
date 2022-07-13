@@ -6,7 +6,6 @@ const Product = ({ product }) => {
   useEffect(() => {
     const abortController = new AbortController();
     const getAndSet = async () => {
-      console.log(product.id)
       try {
         const response = await fetch(
           `https://promise-all-266538.netlify.app/.netlify/functions/getQuantity?id=${product.id}`,
@@ -26,9 +25,10 @@ const Product = ({ product }) => {
   const handleBuy = async () => {
     setQuantity(null);
     const response = await fetch(`/api/products/${product.id}`, { method: 'POST' });
-    const data = await response.json()
-    console.log(data);
-    setQuantity(data.newQuantity)
+    const { result } = await response.json()
+    console.log(result);
+    // setQuantity(prev => prev -1)
+    setQuantity(result.Quantity)
   }
   return (
     <>

@@ -43,8 +43,7 @@ export default async function handler(req, res) {
   const { id } = req.query;
   try {
     const result = await updateQuantity(id);
-    console.log(result)
-    return res.status(200).json({ status: "success", newQuantity: result.Quantity })
+    return res.status(200).json({ status: "success", result })
   } catch (e) {
     return res.status(400).json({ status: "failure", error: e.message })
   }
