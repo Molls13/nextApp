@@ -9,7 +9,7 @@ export default function Products({ products }) {
     <ul>
       {products.map(product => (
       <li key={product.id} >
-        <Link href={`/products/${encodeURIComponent(product.name)}`}>{product.name}</Link>
+        <Link href={`/${encodeURIComponent(product.name)}`}>{product.name}</Link>
       </li>
       ))}
     </ul>
