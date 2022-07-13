@@ -27,6 +27,8 @@ const Product = ({ product }) => {
     setQuantity(null);
     const response = await fetch(`/api/products/${product.id}`, { method: 'POST' });
     const { newQuantity } = await response.json()
+    console.log(response);
+    console.log(newQuantity);
     setQuantity(newQuantity)
   }
   return (
