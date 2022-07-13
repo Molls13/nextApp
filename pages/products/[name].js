@@ -25,8 +25,8 @@ const Product = ({ product }) => {
   }, [])
   const handleBuy = async () => {
     setQuantity(null);
-    const { quantity } = await fetch(`/api/products/${product.id}`, { method: 'POST' });
-    setQuantity(quantity)
+    const { newQuantity } = await fetch(`/api/products/${product.id}`, { method: 'POST' });
+    setQuantity(newQuantity)
   }
   return (
     <>
@@ -34,7 +34,7 @@ const Product = ({ product }) => {
       <p>{product.description}</p>
       <p>{product.price}</p>
       <p>{quantity === null ? "Loading..." : quantity}</p>
-      <button onClick={handleBuy}>Buy 1</button>
+      <button onClick={handleBuy} disabled={!quantity}>Buy 1</button>
     </>
   )
 }
