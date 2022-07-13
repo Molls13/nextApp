@@ -23,12 +23,18 @@ const Product = ({ product }) => {
     getAndSet();
     return () => abortController.abort()
   }, [])
+  const handleBuy = async () => {
+    setQuantity(null);
+    const { quantity } = await fetch(`/api/products/${product.id}`, { method: 'POST' });
+    setQuantity(quantity)
+  }
   return (
     <>
       <p>{product.name}</p>
       <p>{product.description}</p>
       <p>{product.price}</p>
       <p>{quantity === null ? "Loading..." : quantity}</p>
+      <button onClick={handleBuy}>Buy 1</button>
     </>
   )
 }

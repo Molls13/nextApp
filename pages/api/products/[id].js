@@ -1,25 +1,25 @@
 import { MongoClient } from 'mongodb'
-import Cors from 'cors'
+// import Cors from 'cors'
 
-const cors = Cors({
-  methods: ['POST', 'GET', 'HEAD'],
-})
+// const cors = Cors({
+//   methods: ['POST', 'GET', 'HEAD'],
+// })
 
-function runMiddleware(
-  req,
-  res,
-  fn
-) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result)
-      }
+// function runMiddleware(
+//   req,
+//   res,
+//   fn
+// ) {
+//   return new Promise((resolve, reject) => {
+//     fn(req, res, (result) => {
+//       if (result instanceof Error) {
+//         return reject(result)
+//       }
 
-      return resolve(result)
-    })
-  })
-}
+//       return resolve(result)
+//     })
+//   })
+// }
 
 const updateQuantity = async id => {
   // client CANNOT be reopened once closed, must be reinstantiated
@@ -36,7 +36,7 @@ const updateQuantity = async id => {
 }
 
 export default async function handler(req, res) {
-  await runMiddleware(req, res, cors)
+  // await runMiddleware(req, res, cors)
   if (req.method !== "POST") {
     return res.status(405).json({ status: "failure", error: 'Only accept POST' });
   }
