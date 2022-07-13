@@ -25,7 +25,8 @@ const Product = ({ product }) => {
   }, [])
   const handleBuy = async () => {
     setQuantity(null);
-    const { newQuantity } = await fetch(`/api/products/${product.id}`, { method: 'POST' });
+    const response = await fetch(`/api/products/${product.id}`, { method: 'POST' });
+    const { newQuantity } = await response.json()
     setQuantity(newQuantity)
   }
   return (
