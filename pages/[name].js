@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { fetchEntries } from "../contentful"
-
+import styles from '../styles/Home.module.css'
 const Product = ({ product }) => {
   const [quantity, setQuantity] = useState(null)
   useEffect(() => {
@@ -26,17 +26,19 @@ const Product = ({ product }) => {
     setQuantity(null);
     const response = await fetch(`/api/products/${product.id}`, { method: 'POST' });
     const { newQuantity } = await response.json()
-    // setQuantity(prev => prev -1)
     setQuantity(newQuantity)
   }
   return (
-    <>
-      <p>{product.name}</p>
-      <p>{product.description}</p>
-      <p>{product.price}</p>
-      <p>{quantity === null ? "Loading..." : quantity}</p>
-      <button onClick={handleBuy} disabled={!quantity}>Buy 1</button>
-    </>
+    <div className={styles.product_container}>
+      <img className={styles.productImg} src={product.image}/>
+      <div className={styles.productInfo}>
+        <p className={`${styles.text} ${styles.product_name}`}>{product.name}</p>
+        <p className={`${styles.text} ${styles.product_price}`}>{product.price}kr</p>
+        <p className={`${styles.text} ${styles.product_description}`}>{product.description}</p>
+        <p className={`${styles.text} ${styles.product_quantity} ${quantity === null ? "" : quantity === 0 ? styles.oos : quantity <= 10 ? styles.lowstock : styles.stock}`}>{quantity === null ? "Loading..." : quantity === 0 ? "Out of stock" : `${quantity} in stock`}</p>
+        <button className={styles.button} onClick={handleBuy} disabled={!quantity}>Buy now</button>
+      </div>
+    </div>
   )
 }
 
