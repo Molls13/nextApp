@@ -32,7 +32,7 @@ const updateQuantity = async id => {
   const collection = db.collection('Product-quantity');
   const result = await collection.findOneAndUpdate({ ProductId: id }, { $inc: { Quantity: -1 } }, { returnDocument: "after" })
   client.close();
-  return result.Quantity;
+  return result;
 }
 
 export default async function handler(req, res) {
@@ -42,8 +42,9 @@ export default async function handler(req, res) {
   }
   const { id } = req.query;
   try {
-    const newQuantity = await updateQuantity(id);
-    return res.status(200).json({ status: "success", newQuantity })
+    const result = await updateQuantity(id);
+    console.log(result)
+    return res.status(200).json({ status: "success", newQuantity: result.Quantity })
   } catch (e) {
     return res.status(400).json({ status: "failure", error: e.message })
   }
