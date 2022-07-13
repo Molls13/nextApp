@@ -35,7 +35,7 @@ const updateQuantity = async id => {
   return result.Quantity;
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   await runMiddleware(req, res, cors)
   if (req.method !== "POST") {
     return res.status(405).json({ status: "failure", error: 'Only accept POST' });
