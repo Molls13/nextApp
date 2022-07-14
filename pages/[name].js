@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react"
 import { fetchEntries } from "../contentful"
 import styles from '../styles/Home.module.css'
+import Loading from "../components/Loading"
+
 const Product = ({ product }) => {
   const [quantity, setQuantity] = useState(null)
   useEffect(() => {
@@ -35,7 +37,8 @@ const Product = ({ product }) => {
         <p className={`${styles.text} ${styles.product_name}`}>{product.name}</p>
         <p className={`${styles.text} ${styles.product_price}`}>{product.price}kr</p>
         <p className={`${styles.text} ${styles.product_description}`}>{product.description}</p>
-        <p className={`${styles.text} ${styles.product_quantity} ${quantity === null ? "" : quantity === 0 ? styles.oos : quantity <= 10 ? styles.lowstock : styles.stock}`}>{quantity === null ? "Loading..." : quantity === 0 ? "Out of stock" : `${quantity} in stock`}</p>
+        <p className={`${styles.text} ${styles.product_quantity} ${quantity === null ? "" : quantity === 0 ? styles.oos : quantity <= 10 ? styles.lowstock : styles.stock}`}>{
+          quantity === null ? <Loading/> : quantity === 0 ? "Out of stock" : `${quantity} in stock`}</p>
         <button className={styles.button} onClick={handleBuy} disabled={!quantity}>Buy now</button>
       </div>
     </div>
