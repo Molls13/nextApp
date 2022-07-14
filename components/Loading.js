@@ -16,7 +16,7 @@ const Loading = () => {
                         return ""
                 }
             })
-        }, 1000)
+        }, 250)
     }, [])
     return <span>Loading{dots}</span>
 }
